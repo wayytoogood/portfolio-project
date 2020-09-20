@@ -292,6 +292,7 @@ Navbar
     display: grid;
     grid-template-columns: repeat(4, auto);
     width: 45rem;
+    -moz-column-gap: 1.5rem;
     column-gap: 1.5rem;
     /* justify-items: center; */
   }
@@ -320,11 +321,13 @@ Navbar
 @media screen and (min-width: 992px) {
   .nav-list {
     width: 50rem;
+    -moz-column-gap: 4rem;
     column-gap: 4rem;
   }
 }
 @media screen and (min-width: 1200px) {
   .nav-list {
+    -moz-column-gap: 5rem;
     column-gap: 5rem;
   }
 }
@@ -334,7 +337,7 @@ Side Nav
 ===============
 */
 .side-nav {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -346,7 +349,7 @@ Side Nav
   align-content: center;
   row-gap: 7.5rem;
   transform: translateX(-100%);
-  z-index: 10;
+  z-index: 1001;
   transition: var(--transition);
 }
 .side-nav-open {
@@ -571,6 +574,7 @@ Works
 }
 .work img {
   height: 24rem;
+  -o-object-fit: cover;
   object-fit: cover;
   border-radius: 1rem;
   margin-bottom: 3.2rem;
@@ -621,6 +625,7 @@ Works
   .works-center {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    -moz-column-gap: 3.2rem;
     column-gap: 3.2rem;
   }
   .work-info,
@@ -668,6 +673,14 @@ Touch
 ===============
 */
 .touch {
+  -webkit-clip-path: polygon(
+    50% 0%,
+    100% 10%,
+    100% 90%,
+    50% 100%,
+    0 90%,
+    0 10%
+  );
   clip-path: polygon(50% 0%, 100% 10%, 100% 90%, 50% 100%, 0 90%, 0 10%);
   min-height: 40vh;
   padding: 10rem 0 5rem;
@@ -676,14 +689,23 @@ Touch
   display: grid;
   place-items: center;
 }
-.touch video {
+.touch .background {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  -o-object-fit: cover;
   object-fit: cover;
   z-index: -2;
+}
+.touch video {
+  display: none;
+}
+.touch .background-img img {
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
 }
 .touch::after {
   content: '';
@@ -698,6 +720,15 @@ Touch
 }
 .touch-info {
   padding: 6rem 8rem 20rem 8rem;
+  -webkit-clip-path: polygon(
+    0 0,
+    100% 0,
+    100% 75%,
+    75% 75%,
+    75% 100%,
+    50% 75%,
+    0 75%
+  );
   clip-path: polygon(0 0, 100% 0, 100% 75%, 75% 75%, 75% 100%, 50% 75%, 0 75%);
   background-color: var(--clr-primary-9);
   text-align: center;
@@ -705,6 +736,14 @@ Touch
 .touch-info p {
   max-width: 48rem;
   color: var(--clr-grey-4);
+}
+@media screen and (min-width: 768px) {
+  .background-img {
+    display: none;
+  }
+  .touch .background-video {
+    display: block;
+  }
 }
 /*
 =============== 
@@ -798,6 +837,7 @@ Skills
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     align-items: center;
+    -moz-column-gap: 2.75rem;
     column-gap: 2.75rem;
   }
   .skills .section-title {
@@ -815,6 +855,7 @@ Skills
 }
 @media screen and (min-width: 992px) {
   .skills-center {
+    -moz-column-gap: 3.5rem;
     column-gap: 3.5rem;
   }
   .front h3,
@@ -937,6 +978,7 @@ Blog
 }
 .card img {
   height: 20.8rem;
+  -o-object-fit: cover;
   object-fit: cover;
   border-top-left-radius: 1rem;
   border-top-right-radius: 1rem;
@@ -948,6 +990,7 @@ Blog
   width: 100%;
   height: 100%;
   border-radius: 1rem;
+  -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   transition: all 2s;
 }
@@ -959,12 +1002,6 @@ Blog
   place-items: center;
   background-color: var(--clr-primary-8);
   transform: rotateY(180deg);
-}
-.card:hover .card-front {
-  transform: rotateY(-180deg);
-}
-.card:hover .card-back {
-  transform: rotateY(0);
 }
 .article-info {
   padding: 2rem 2rem 0rem 2rem;
@@ -989,6 +1026,7 @@ Blog
 .article-footer img {
   width: 3.25rem;
   height: 3.25rem;
+  -o-object-fit: cover;
   object-fit: cover;
   border-radius: 50%;
 }
@@ -1010,10 +1048,17 @@ Blog
   .blog-center {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    -moz-column-gap: 2rem;
     column-gap: 2rem;
   }
   .card {
     height: 47rem;
+  }
+  .card:hover .card-front {
+    transform: rotateY(-180deg);
+  }
+  .card:hover .card-back {
+    transform: rotateY(0);
   }
 }
 @media screen and (min-width: 800px) {
@@ -1113,7 +1158,26 @@ Project Page
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
+  -webkit-animation: arrow-bounce 3s ease-in-out forwards;
   animation: arrow-bounce 3s ease-in-out forwards;
+}
+@-webkit-keyframes arrow-bounce {
+  0% {
+    top: -6rem;
+    color: #ee7b83;
+  }
+  50% {
+    top: 11rem;
+    color: #e84f5a;
+  }
+  75% {
+    top: 8rem;
+    color: #e63946;
+  }
+  100% {
+    top: 10rem;
+    color: var(--clr-primary-5);
+  }
 }
 @keyframes arrow-bounce {
   0% {
@@ -1143,6 +1207,7 @@ Project Page
 }
 .project img {
   height: 25rem;
+  -o-object-fit: cover;
   object-fit: cover;
   border-top-left-radius: 1rem;
   border-top-right-radius: 1rem;
